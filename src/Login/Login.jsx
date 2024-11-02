@@ -11,8 +11,14 @@ export default function Login() {
         axios.post(`https://mern-ecommerece.onrender.com/api/auth/login`,newUser)
             .then((res)=>{
                 console.log(res)
-                if(res.status===200)
+                if(res.status===200){
+                    localStorage.setItem("userId",res.data.userID)
+                    localStorage.setItem("role",res.data.role)
                     navigate("/")
+                } 
+            })
+            .catch((err)=>{
+                alert("Invalid credentials")
             })
     }
     return (
