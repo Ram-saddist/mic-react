@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import "./Login.css"
 export default function Login() {
     const navigate=useNavigate()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
-    function handleLogin(){}
+    function handleLogin(){
+        const newUser={email,password}
+        axios.post(`https://mern-ecommerece.onrender.com/api/auth/login`,newUser)
+            .then((res)=>{
+                console.log(res)
+                if(res.status===200)
+                    navigate("/")
+            })
+    }
     return (
         <div className='login-container'>
             <div className="form-group">
@@ -20,7 +29,7 @@ export default function Login() {
                     type="text" 
                     onChange={(e)=>setPassword(e.target.value)}/>
             </div>
-            <button>Submit</button>
+            <button onClick={handleLogin}>Submit</button>
         </div>
     )
 }
