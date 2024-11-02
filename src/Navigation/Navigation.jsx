@@ -33,3 +33,7 @@ export default function Navigation() {
     </div>
   )
 }
+
+
+// admin@gmail.com
+// Admin@1
