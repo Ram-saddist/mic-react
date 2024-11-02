@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import './AddProduct.css'
 export default function AddProduct() {
     const navigate=useNavigate()
     const [productName,setProductName]=useState("")
@@ -9,6 +9,9 @@ export default function AddProduct() {
     const [productDescription,setProductdescription]=useState("")
     const [stock,setStock]=useState("")
     const [category,setCatogry]=useState("")
+    function addProduct(){
+
+    }
     return (
         <div className='product-container'>
             <div className="form-group">
