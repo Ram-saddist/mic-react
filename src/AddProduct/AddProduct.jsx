@@ -1,54 +1,60 @@
 import React, { useState } from 'react'
+import './AddProduct.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import './AddProduct.css'
+
 export default function AddProduct() {
     const navigate=useNavigate()
-    const [productName,setProductName]=useState("")
-    const [productPrice,setProductPrice]=useState("")
-    const [productDescription,setProductdescription]=useState("")
-    const [stock,setStock]=useState("")
-    const [category,setCatogry]=useState("")
-    function addProduct(){
-
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    const [category,setCategory]=useState('')
+    const [stock,setStock]=useState('')
+    const [description,setDescription]=useState('')
+    const userRole=localStorage.getItem('role')
+    async function addProduct(){
+        const newProduct={name,price,category,description,stock,role:userRole}
+        console.log(newProduct)
+        const response=await axios.post(`https://mern-ecommerece.onrender.com/api/products/add`,newProduct)
+        if(response.status===201){
+            navigate("/")
+        }
+        else{
+            console.log("product not added")
+        }
     }
     return (
         <div className='product-container'>
-            <div className="form-group">
-                <label htmlFor="">Product Name</label>
+            <div className='form-group'>
+                <label>Product name</label>
                 <input 
-                    type="text" 
-                    placeholder='Enter product Name'
-                    onChange={(e)=>setProductName(e.target.value)}/>
+                    value={name} 
+                    onChange={(e)=>setName(e.target.value)}/>
             </div>
-            <div className="form-group">
-                <label htmlFor="">Product Price</label>
+            <div className='form-group'>
+                <label>Price</label>
                 <input 
-                    type="text" 
-                    placeholder='Enter price'
-                    onChange={(e)=>setProductPrice(e.target.value)}/>
+                    value={price} 
+                    onChange={(e)=>setPrice(e.target.value)}/>
             </div>
-            <div className="form-group">
-                <label htmlFor="">Description</label>
+            <div className='form-group'>
+                <label>Stock</label>
                 <input 
-                    type="text" 
-                    placeholder='Enter product description'/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="">Stock</label>
-                <input 
-                    type="text" 
-                    placeholder='Enter Stock'
+                    value={stock} 
                     onChange={(e)=>setStock(e.target.value)}/>
             </div>
-            <div className="form-group">
-                <label htmlFor="">Category</label>
+            <div className='form-group'>
+                <label>Description</label>
                 <input 
-                    type="text" 
-                    placeholder='Enter which category'
-                    onChange={(e)=>setCatogry(e.target.value)}/>
+                    value={description} 
+                    onChange={(e)=>setDescription(e.target.value)}/>
             </div>
-            <button onClick={addProduct}>Add Product</button>
+            <div className='form-group'>
+                <label>Category</label>
+                <input 
+                    value={category} 
+                    onChange={(e)=>setCategory(e.target.value)}/>
+            </div>
+            <button onClick={addProduct}>Add Prodct</button>
         </div>
     )
 }
