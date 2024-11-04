@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 export default function Home() {
+    const navigate=useNavigate()
+    const userId=localStorage.getItem("userId")
     const [products,setProducts]=useState("")
     const [loading,setLoading]=useState(true)
     useEffect(()=>{
@@ -15,8 +17,18 @@ export default function Home() {
                 setLoading(false)
             })
     }
-    function addCart(){
-
+    function addCart(productId){
+        console.log(productId,userId)
+        axios.post(`https://mern-ecommerece.onrender.com/api/cart/add`,{productId,quantity:1},{
+            params:{userId}
+        })
+            .then((res)=>{
+                console.log(res)
+                if(res.status===200){
+                    alert("Product added successfully")
+                    navigate("/cart")
+                }
+            })
     }
     return (
         <div>
@@ -31,7 +43,7 @@ export default function Home() {
                                     <p>Stock:{item.stock}</p>
                                     <p>Price:{item.price}</p>
                                     <p>Description:{item.description}</p>
-                                    <button onClick={addCart}>Add to Cart</button>
+                                    <button onClick={()=>addCart(item._id)}>Add to Cart</button>
                                 </div>
                             ))
                         }

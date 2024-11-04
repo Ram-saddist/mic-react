@@ -5,6 +5,7 @@ export default function Navigation() {
   const navigate =useNavigate()
   const userRole=localStorage.getItem("role")
   const userId=localStorage.getItem("userId")
+  console.log("navigation",userId)
   function handleLogout(){
     localStorage.removeItem("userId")
     localStorage.removeItem("role")

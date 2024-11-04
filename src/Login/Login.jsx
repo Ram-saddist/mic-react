@@ -10,9 +10,9 @@ export default function Login() {
         const newUser={email,password}
         axios.post(`https://mern-ecommerece.onrender.com/api/auth/login`,newUser)
             .then((res)=>{
-                console.log(res)
+                console.log("user login res",res)
                 if(res.status===200){
-                    localStorage.setItem("userId",res.data.userID)
+                    localStorage.setItem("userId",res.data.userId)
                     localStorage.setItem("role",res.data.role)
                     navigate("/")
                 } 
