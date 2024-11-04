@@ -3,13 +3,14 @@ import Navigation from "./Navigation/Navigation";
 import Signup from "./Signup/Signup";
 import Login from "./Login/Login";
 import AddProduct from "./AddProduct/AddProduct";
+import Home from './Home/Home'
 function App(){
   return(
     <div>
       <BrowserRouter>
       <Navigation/>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Home/>}/>
           <Route path="/addproduct" element={<AddProduct/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/login" element={<Login/>}/>
